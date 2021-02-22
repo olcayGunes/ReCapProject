@@ -13,36 +13,31 @@ namespace ConsoleUI
 		{
 			CarManager carManager = new CarManager(new EfCarDal());
 
-			carManager.Add(new Car { BrandId = 2, ColorId = 3, DailyPrice = 0, Description = "Yeni Araaba", ModelYear = 2020, Name = "Belli Değil" });
-
-			carManager.Add(new Car { BrandId = 2, ColorId = 3, DailyPrice = 100, Description = "Yeni Araba", ModelYear = 2020, Name = "Belli Değil" });
-
-
-			var Entities=carManager.GetAll();
-			foreach (var entity in Entities)
+			Console.WriteLine("GetAll ile Listeleme");
+			foreach (var car in carManager.GetAll())
 			{
-				Console.WriteLine(entity.Description+entity.DailyPrice);
+				Console.WriteLine(car.Name+"	"+car.DailyPrice);
 			}
-			/*
-			InMemoryCarDal inMemoryCarDal = new InMemoryCarDal();
+			Console.WriteLine("*******************************************************");
 
-			inMemoryCarDal.Add(new Car() { Id = 5, BrandId = 3, ColorId = 1, DailyPrice = 500, ModelYear = 2021, Description = "Lux Class" });
-			inMemoryCarDal.Add(new Car() { Id = 6, BrandId = 2, ColorId = 2, DailyPrice = 300, ModelYear = 2020, Description = "High Class" });
-
-			var resultGetById=inMemoryCarDal.GetById(6);
-			foreach (var result in resultGetById)
+			Console.WriteLine("********** GetByBrandId ile Listeleme **********");
+			foreach (var car in carManager.GetCarByBrandId(1))
 			{
-				Console.WriteLine(result.BrandId + " " + result.Description);
+				Console.WriteLine(car.BrandId+"	"+car.Name);
 			}
+			Console.WriteLine("*******************************************************");
 
-			Console.WriteLine("---------------------------");
 
-			var resultGetAll=inMemoryCarDal.GetAll();
-			foreach (var result in resultGetAll)
+			// Tablolar join edilerek araç bilgileri listeleme
+			foreach (var car in carManager.GetCarDetails())
 			{
-				Console.WriteLine(result.BrandId+" "+result.Description);
+				
+				Console.WriteLine("Name:"+car.CarName);
+				Console.WriteLine("Brand Name:" + car.BrandName);
+				Console.WriteLine("Color:" + car.ColorName);
+				Console.WriteLine("Daily Price:" + car.DailyPrice);
+				Console.WriteLine("------------------------------------");
 			}
-			*/
 		}
 	}
 }
