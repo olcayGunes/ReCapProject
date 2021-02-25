@@ -14,14 +14,16 @@ namespace ConsoleUI
 			CarManager carManager = new CarManager(new EfCarDal());
 
 			Console.WriteLine("GetAll ile Listeleme");
-			foreach (var car in carManager.GetAll())
+			var result = carManager.GetAll();
+			foreach (var car in result.Data)
 			{
 				Console.WriteLine(car.Name+"	"+car.DailyPrice);
 			}
 			Console.WriteLine("*******************************************************");
 
 			Console.WriteLine("********** GetByBrandId ile Listeleme **********");
-			foreach (var car in carManager.GetCarByBrandId(1))
+			var result2 = carManager.GetCarByBrandId(1);
+			foreach (var car in result2.Data)
 			{
 				Console.WriteLine(car.BrandId+"	"+car.Name);
 			}
@@ -29,7 +31,8 @@ namespace ConsoleUI
 
 
 			// Tablolar join edilerek araç bilgileri listeleme
-			foreach (var car in carManager.GetCarDetails())
+			var result3 = carManager.GetCarDetails();
+			foreach (var car in result3.Data)
 			{
 				
 				Console.WriteLine("Name:"+car.CarName);

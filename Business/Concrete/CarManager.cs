@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -16,37 +18,41 @@ namespace Business.Concrete
 			_carDal = carDal;
 		}
 
-		public void Add(Car car)
+		public IResult Add(Car car)
 		{
 			if (car.Name.Length>=2 && car.DailyPrice>0)
 			{
 				_carDal.Add(car);
-				Console.WriteLine("Araç Veritabanına Eklenmiştir.");
+				return new SuccessResult(Messages.CarAdded);
 			}
 			else
 			{
-				Console.WriteLine("Eklemek İstediğiniz Aracın Bilgileri Kayıt İçin Yeterli Değildir. Lütfen Düzeltip Tekrar Deneyiniz.");
+				return new ErrorResult(Messages.CarNameOrDailyPriceInvalid);
 			}
 		}
 
-		public List<Car> GetAll()
+		public IDataResult<List<Car>> GetAll()
 		{
-			return _carDal.GetAll();
+			if (DateTime.Now.Hour==0)
+			{
+				return new ErrorDataResult<List<Car>>(_carDal.GetAll(), Messages.MaintenanceTime);
+			}
+			return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.CarsListed);
 		}
 
-		public List<Car> GetCarByBrandId(int id)
+		public IDataResult<List<Car>> GetCarByBrandId(int id)
 		{
-			return _carDal.GetAll(c => c.BrandId == id);
+			return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
 		}
 
-		public List<Car> GetCarByColorId(int id )
+		public IDataResult<List<Car>> GetCarByColorId(int id )
 		{
-			return _carDal.GetAll(c => c.ColorId == id);
+			return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
 		}
 
-		public List<CarDetailDto> GetCarDetails()
+		public IDataResult<List<CarDetailDto>> GetCarDetails()
 		{
-			return _carDal.GetCarDetails();
+			return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
 		}
 	}
 }
