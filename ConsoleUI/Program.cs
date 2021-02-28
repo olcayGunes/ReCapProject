@@ -54,7 +54,7 @@ namespace ConsoleUI
 		private static void CarManagerTest()
 		{
 			CarManager carManager = new CarManager(new EfCarDal());
-
+			/*
 			Console.WriteLine("GetAll ile Listeleme");
 			var result = carManager.GetAll();
 			foreach (var car in result.Data)
@@ -70,8 +70,8 @@ namespace ConsoleUI
 				Console.WriteLine(car.BrandId + "	" + car.Name);
 			}
 			Console.WriteLine("*******************************************************");
-
-
+			
+			*/
 			// Tablolar join edilerek araç bilgileri listeleme
 			var result3 = carManager.GetCarDetails();
 			foreach (var car in result3.Data)
@@ -81,6 +81,7 @@ namespace ConsoleUI
 				Console.WriteLine("Brand Name:" + car.BrandName);
 				Console.WriteLine("Color:" + car.ColorName);
 				Console.WriteLine("Daily Price:" + car.DailyPrice);
+				Console.WriteLine("Model Year:" + car.ModelYear);
 				Console.WriteLine("------------------------------------");
 			}
 		}

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Data.SqlTypes;
 
 namespace DataAccess.Concrete.EntityFramework
 {
@@ -22,7 +23,16 @@ namespace DataAccess.Concrete.EntityFramework
 							 on r.CustomerId equals cu.Id
 							 join u in context.Users
 							 on cu.UserId equals u.Id
-							 select new RentalDetailDto { Id = r.Id, CarName = ca.Name, CustomerName = u.FirstName, CustomerLastName = u.LastName, CustomerCompanyName = cu.CompanyName, CustomerEMail = u.EMail, RentDate = r.RentDate, ReturnDate = r.ReturnDate };
+							 select new RentalDetailDto 
+							 { 
+								 Id = r.Id, 
+								 CarName = ca.Name, 
+								 CustomerName = u.FirstName, 
+								 CustomerLastName = u.LastName,
+								 CustomerCompanyName = cu.CompanyName, 
+								 CustomerEMail = u.EMail, 
+								 RentDate = r.RentDate, 
+								 ReturnDate = r.ReturnDate };
 				return result.ToList();
 
 			}
